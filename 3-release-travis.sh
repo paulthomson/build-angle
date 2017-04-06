@@ -3,12 +3,16 @@ set -x
 set -e
 set -u
 
+shopt -s extglob
+
 
 echo "${INSTALL_DIR}"
-COMMIT_ID="${APPVEYOR_REPO_COMMIT}"
+echo "${COMMIT_ID}"
+echo "${RELEASE_ZIP}"
 
 cd "${INSTALL_DIR}"
-7z a "../${INSTALL_DIR}.zip" "*.*"
+# All files except "obj" dir
+7z a "../${RELEASE_ZIP}.zip" !(obj)
 cd ..
 
 github-release \
@@ -16,5 +20,5 @@ github-release \
   "v-${COMMIT_ID}" \
   "${COMMIT_ID}" \
   "$(echo -e "Automated build.\n$(git log --graph -n 3 --abbrev-commit --pretty='format:%h - %s <%an>')")" \
-  "${INSTALL_DIR}.zip"
+  "${RELEASE_ZIP}.zip"
 

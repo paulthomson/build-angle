@@ -8,8 +8,8 @@ clone_depth: 5
 skip_tags: true
 
 configuration:
-  - Debug
   - Release
+  - Debug
 
 platform:
   - x64
@@ -17,8 +17,8 @@ platform:
 
 install:
   - set BRANCH_TO_CO=chromium/3029
-  - echo Building branch %BRANCH_TO_CO%
-  - bash 1-install.sh
+  - echo Building %BRANCH_TO_CO%
+  - bash 1-install-deps-appveyor.sh
   - refreshenv
   - set PATH=%cd%\temp;%PATH%
   - git clone https://github.com/google/angle.git
@@ -45,5 +45,7 @@ build_script:
 on_success:
   - cd angle\gyp
   - set INSTALL_DIR=%Configuration%_%Platform%
-  - bash ..\..\3-release.sh
+  - set RELEASE_ZIP=MSVC2015-%Configuration%-%Platform%
+  - set COMMIT_ID=%APPVEYOR_REPO_COMMIT%
+  - bash ..\..\3-release-appveyor.sh
 
