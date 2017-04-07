@@ -9,7 +9,7 @@ echo "${COMMIT_ID}"
 echo "${RELEASE_ZIP}"
 
 cd "${INSTALL_DIR}"
-7z a "../${RELEASE_ZIP}.zip" *.*
+7z a "../${RELEASE_ZIP}.zip" *.* lib
 cd ..
 
 github-release \
