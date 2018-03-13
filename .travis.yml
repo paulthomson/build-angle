@@ -3,7 +3,7 @@ language: generic
 
 env:
   global:
-    - CO="chromium/3029"
+    - CO=e713cbae99b1f33a18a84eaf6ae8bac208131f10
 
 matrix:
   include:

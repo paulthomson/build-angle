@@ -16,7 +16,7 @@ platform:
 #  - x86
 
 install:
-  - set BRANCH_TO_CO=chromium/3029
+  - set BRANCH_TO_CO=e713cbae99b1f33a18a84eaf6ae8bac208131f10
   - echo Building %BRANCH_TO_CO%
   - bash 1-install-deps-appveyor.sh
   - refreshenv
