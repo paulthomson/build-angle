@@ -1,7 +1,7 @@
 
 version: 1.0.{branch}-{build}
 
-image: Visual Studio 2015
+image: Visual Studio 2017
 
 clone_depth: 5
 
@@ -27,7 +27,7 @@ install:
   - set PATH=%cd%\depot_tools;%PATH%
   - gclient
   - set GYP_GENERATORS=msvs
-  - set GYP_MSVS_VERSION=2015
+  - set GYP_MSVS_VERSION=2017
   - cd angle
   - git checkout %BRANCH_TO_CO%
   - python scripts\bootstrap.py
@@ -45,7 +45,7 @@ build_script:
 on_success:
   - cd angle\gyp
   - set INSTALL_DIR=%Configuration%_%Platform%
-  - set RELEASE_ZIP=MSVC2015-%Configuration%-%Platform%
+  - set RELEASE_ZIP=MSVC2017-%Configuration%-%Platform%
   - set COMMIT_ID=%APPVEYOR_REPO_COMMIT%
   - bash ..\..\3-release-appveyor.sh
 
