@@ -3,7 +3,7 @@ language: generic
 
 env:
   global:
-    - CO=e713cbae99b1f33a18a84eaf6ae8bac208131f10
+    - CO=f0b30dd8bd2bd68d6aad0e161f5fc3816d5a5077
 
 matrix:
   include:
