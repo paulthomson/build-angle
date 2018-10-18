@@ -42,8 +42,3 @@ cd "${CLONE_DIR}"
 git checkout $(cat ../COMMIT_ID)
 python scripts/bootstrap.py
 gclient sync
-
-if [ "$(uname)" == "Linux" ];
-then
-  ./build/install-build-deps.sh
-fi
