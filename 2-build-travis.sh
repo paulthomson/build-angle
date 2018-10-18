@@ -6,9 +6,9 @@ set -u
 cd "${CLONE_DIR}"
 
 if [ "${Configuration}" = "Debug" ]; then
-  IS_DEBUG="yes"
+  IS_DEBUG="true"
 else
-  IS_DEBUG="no"
+  IS_DEBUG="false"
 fi
 
 gn gen "out/${Configuration}" "--args=is_debug=\"${IS_DEBUG}\" target_cpu=\"x64\""
