@@ -3,19 +3,51 @@ set -x
 set -e
 set -u
 
+cd "${CLONE_DIR}"
 
-echo "${INSTALL_DIR}"
-echo "${COMMIT_ID}"
-echo "${RELEASE_ZIP}"
+for f in "${INSTALL_DIR}/bin/"* "${INSTALL_DIR}/lib/"*; do
+  echo "${COMMIT_ID}">"${f}.build-version"
+  cp ../COMMIT_ID "${f}.version"
+done
 
 cd "${INSTALL_DIR}"
 7z a "../${RELEASE_ZIP}.zip" *.* lib
 cd ..
 
+sha1sum "${INSTALL_DIR}.zip" >"${INSTALL_DIR}.zip.sha1"
+
+sed -e "s/@GROUP@/${GROUP_DOTS}/g" -e "s/@ARTIFACT@/${ARTIFACT}/g" -e "s/@VERSION@/${VERSION}/g" "../fake_pom.xml" >"${POM_FILE}"
+sha1sum "${POM_FILE}" >"${POM_FILE}.sha1"
+
+DESCRIPTION="$(echo -e "Automated build.\n$(git log --graph -n 3 --abbrev-commit --pretty='format:%h - %s <%an>')")"
+
 github-release \
-  paulthomson/build-angle \
-  "v-${COMMIT_ID}" \
+  "${GITHUB_USER}/${GITHUB_REPO}" \
+  "${TAG}" \
   "${COMMIT_ID}" \
-  "$(echo -e "Automated build.\n$(git log --graph -n 3 --abbrev-commit --pretty='format:%h - %s <%an>')")" \
-  "${RELEASE_ZIP}.zip"
+  "${DESCRIPTION}" \
+  "${INSTALL_DIR}.zip"
+
+github-release \
+  "${GITHUB_USER}/${GITHUB_REPO}" \
+  "${TAG}" \
+  "${COMMIT_ID}" \
+  "${DESCRIPTION}" \
+  "${INSTALL_DIR}.zip.sha1"
+
+# Don't fail if pom cannot be uploaded, as it might already be there.
+
+github-release \
+  "${GITHUB_USER}/${GITHUB_REPO}" \
+  "${TAG}" \
+  "${COMMIT_ID}" \
+  "${DESCRIPTION}" \
+  "${POM_FILE}" || true
+
+github-release \
+  "${GITHUB_USER}/${GITHUB_REPO}" \
+  "${TAG}" \
+  "${COMMIT_ID}" \
+  "${DESCRIPTION}" \
+  "${POM_FILE}.sha1" || true
 
