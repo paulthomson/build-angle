@@ -35,8 +35,6 @@ wget "https://github.com/${GITHUB_RELEASE_TOOL_USER}/github-release/releases/dow
 tar xf "github-release_${GITHUB_RELEASE_TOOL_VERSION}_${GITHUB_RELEASE_TOOL_ARCH}.tar.gz"
 popd
 
-export PATH=/data/depot_tools:$PATH
-
 git clone https://chromium.googlesource.com/angle/angle "${CLONE_DIR}"
 cd "${CLONE_DIR}"
 git checkout $(cat ../COMMIT_ID)

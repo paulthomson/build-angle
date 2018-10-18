@@ -22,8 +22,6 @@ cd depot_tools
 git checkout 08faab99d41bd4f1f727267586ff28a227f80cd3
 cd ..
 
-export PATH=${APPVEYOR_BUILD_FOLDER}/depot_tools:$PATH
-
 git clone https://chromium.googlesource.com/angle/angle "${CLONE_DIR}"
 cd "${CLONE_DIR}"
 git checkout $(cat ../COMMIT_ID)
