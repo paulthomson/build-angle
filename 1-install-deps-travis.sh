@@ -7,8 +7,8 @@ sudo mkdir -p /data/bin
 sudo chmod uga+rwx /data/bin
 sudo chmod uga+rwx /data
 
-GITHUB_RELEASE_TOOL_USER="paulthomson"
-GITHUB_RELEASE_TOOL_VERSION="v1.0.9.1"
+GITHUB_RELEASE_TOOL_USER="c4milo"
+GITHUB_RELEASE_TOOL_VERSION="v1.1.0"
 
 
 if [ "$(uname)" == "Darwin" ];
