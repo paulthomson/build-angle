@@ -18,7 +18,7 @@ install:
   - set "CLONE_DIR=angle"
   - bash 1-install-deps-appveyor.sh
   - refreshenv
-  - set "PATH=%APPVEYOR_BUILD_FOLDER%\temp;%PATH%"
+  - set "PATH=%APPVEYOR_BUILD_FOLDER%\temp;%APPVEYOR_BUILD_FOLDER%\depot_tools;%PATH%"
   - set "GITHUB_USER=paulthomson"
   - set "GITHUB_REPO=build-angle"
   - set "COMMIT_ID=%APPVEYOR_REPO_COMMIT%"
