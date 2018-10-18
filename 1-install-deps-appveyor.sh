@@ -5,6 +5,7 @@ set -u
 
 GITHUB_RELEASE_TOOL_USER="c4milo"
 GITHUB_RELEASE_TOOL_VERSION="v1.1.0"
+GITHUB_RELEASE_TOOL_ARCH="windows_amd64"
 
 mkdir temp
 cd temp
