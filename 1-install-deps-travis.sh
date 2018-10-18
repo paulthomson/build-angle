@@ -5,6 +5,7 @@ set -u
 
 sudo mkdir -p /data/bin
 sudo chmod uga+rwx /data/bin
+sudo chmod uga+rwx /data
 
 GITHUB_RELEASE_TOOL_USER="paulthomson"
 GITHUB_RELEASE_TOOL_VERSION="v1.0.9.1"
