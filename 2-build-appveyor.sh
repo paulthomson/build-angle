@@ -19,4 +19,4 @@ mkdir -p "${INSTALL_DIR}/lib"
 
 cp "out/${Configuration}/libEGL"* "${INSTALL_DIR}/lib/"
 cp "out/${Configuration}/libGLES"* "${INSTALL_DIR}/lib/"
-cp "out/${Configuration}/shader_translator" "${INSTALL_DIR}/bin/"
+cp "out/${Configuration}/shader_translator"* "${INSTALL_DIR}/bin/"
