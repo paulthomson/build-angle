@@ -17,7 +17,7 @@ platform:
 install:
   - set "CLONE_DIR=angle"
   - set "PATH=%APPVEYOR_BUILD_FOLDER%\temp;%APPVEYOR_BUILD_FOLDER%\depot_tools;%PATH%"
-  - git bash 1-install-deps-appveyor.sh
+  - git-bash 1-install-deps-appveyor.sh
   - refreshenv
   - set "CLONE_DIR=angle"
   - set "PATH=%APPVEYOR_BUILD_FOLDER%\temp;%APPVEYOR_BUILD_FOLDER%\depot_tools;%PATH%"
@@ -34,7 +34,7 @@ install:
   - set "INSTALL_DIR=%ARTIFACT%-%VERSION%-%CLASSIFIER%"
 
 build_script:
-  - git bash 2-build-appveyor.sh
+  - git-bash 2-build-appveyor.sh
 
 on_success:
-  - git bash 3-release-appveyor.sh
+  - git-bash 3-release-appveyor.sh
