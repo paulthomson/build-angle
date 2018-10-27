@@ -17,10 +17,12 @@ platform:
 install:
   - set "CLONE_DIR=angle"
   - set "PATH=%APPVEYOR_BUILD_FOLDER%\temp;%APPVEYOR_BUILD_FOLDER%\depot_tools;%PATH%"
+  - set "DEPOT_TOOLS_WIN_TOOLCHAIN=0"
   - '"C:\Program Files\Git\bin\sh.exe" --login 1-install-deps-appveyor.sh'
   - refreshenv
   - set "CLONE_DIR=angle"
   - set "PATH=%APPVEYOR_BUILD_FOLDER%\temp;%APPVEYOR_BUILD_FOLDER%\depot_tools;%PATH%"
+  - set "DEPOT_TOOLS_WIN_TOOLCHAIN=0"
   - set "GITHUB_USER=paulthomson"
   - set "GITHUB_REPO=build-angle"
   - set "COMMIT_ID=%APPVEYOR_REPO_COMMIT%"
