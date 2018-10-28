@@ -11,7 +11,7 @@ else
   IS_DEBUG="false"
 fi
 
-gn gen "out/${Configuration}" "--args=is_debug=${IS_DEBUG} target_cpu=\"x64\""
+gn gen "out/${Configuration}" "--args=is_debug=${IS_DEBUG} target_cpu=\"x64\" is_clang=false"
 ninja -C "out/${Configuration}"
 
 mkdir -p "${INSTALL_DIR}/bin"
