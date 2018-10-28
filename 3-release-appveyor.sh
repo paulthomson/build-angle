@@ -11,7 +11,7 @@ for f in "${INSTALL_DIR}/bin/"* "${INSTALL_DIR}/lib/"*; do
 done
 
 cd "${INSTALL_DIR}"
-7z a "../${RELEASE_ZIP}.zip" *.* lib
+7z a "../${INSTALL_DIR}.zip" *.* lib
 cd ..
 
 sha1sum "${INSTALL_DIR}.zip" >"${INSTALL_DIR}.zip.sha1"
