@@ -1,49 +1,48 @@
 
 language: generic
 
-env:
-  global:
-    - CO=f0b30dd8bd2bd68d6aad0e161f5fc3816d5a5077
 
 matrix:
   include:
     - os: linux
       dist: trusty
       sudo: required
-      env: BUILD_PLATFORM="Linux-x64" Configuration="Debug"
+      env: BUILD_PLATFORM="Linux_x64" Configuration="Debug"
     - os: linux
       dist: trusty
       sudo: required
-      env: BUILD_PLATFORM="Linux-x64" Configuration="Release"
+      env: BUILD_PLATFORM="Linux_x64" Configuration="Release"
     - os: osx
-      osx_image: xcode7.3
-      env: BUILD_PLATFORM="Darwin-x64" Configuration="Debug"
+      osx_image: xcode8.3
+      env: BUILD_PLATFORM="Mac_x64" Configuration="Debug"
+      cache:
+        directories:
+          - $HOME/Library/Caches/Homebrew
     - os: osx
-      osx_image: xcode7.3
-      env: BUILD_PLATFORM="Darwin-x64" Configuration="Release"
+      osx_image: xcode8.3
+      env: BUILD_PLATFORM="Mac_x64" Configuration="Release"
+      cache:
+        directories:
+          - $HOME/Library/Caches/Homebrew
 
 install:
+  - export CLONE_DIR="angle"
+  - export PATH=/data/bin:/data/depot_tools:$PATH
+  - export GITHUB_USER="paulthomson"
+  - export GITHUB_REPO="build-angle"
+  - export COMMIT_ID="${TRAVIS_COMMIT}"
+  - export GROUP_DOTS="github.${GITHUB_USER}"
+  - export GROUP_SLASHES="github/${GITHUB_USER}"
+  - export ARTIFACT="${GITHUB_REPO}"
+  - export VERSION="${COMMIT_ID}"
+  - export POM_FILE="${GITHUB_REPO}-${VERSION}.pom"
+  - export TAG="${GROUP_SLASHES}/${ARTIFACT}/${VERSION}"
+  - export CLASSIFIER="${BUILD_PLATFORM}_${Configuration}"
+  - export INSTALL_DIR="${ARTIFACT}-${VERSION}-${CLASSIFIER}"
   - ./1-install-deps-travis.sh
-  - export PATH=/data/bin:$PATH
 
 script:
-  - echo Building ${CO}
-  - git clone https://github.com/google/angle.git
-  - wget https://storage.googleapis.com/chrome-infra/depot_tools.zip
-  - 7z x depot_tools.zip -odepot_tools
-  - export PATH=$(pwd)/depot_tools:$PATH
-  - gclient
-  - export GYP_GENERATORS=ninja
-  - cd angle
-  - git checkout ${CO}
-  - python scripts/bootstrap.py
-  - gclient sync
-  - git checkout ${CO}
-  - ninja -C "out/${Configuration}"
-  - cd ..
+  - ./2-build-travis.sh
 
 after_success:
-  - cd angle/out
-  - INSTALL_DIR="${Configuration}" COMMIT_ID="${TRAVIS_COMMIT}" RELEASE_ZIP="${BUILD_PLATFORM}-${Configuration}" ../../3-release-travis.sh
-
-
+  - ./3-release-travis.sh
