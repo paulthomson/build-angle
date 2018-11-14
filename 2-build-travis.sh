@@ -12,7 +12,7 @@ else
 fi
 
 gn gen "out/${Configuration}" "--args=is_debug=${IS_DEBUG} target_cpu=\"x64\""
-ninja -C "out/${Configuration}"
+ninja -C "out/${Configuration}" libEGL libEGL_static libGLESv2 libGLESv2_static libGLESv1_CM libGLESv1_CM_static shader_translator
 
 mkdir -p "${INSTALL_DIR}/bin"
 mkdir -p "${INSTALL_DIR}/lib"
