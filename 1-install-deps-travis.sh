@@ -40,3 +40,20 @@ cd "${CLONE_DIR}"
 git checkout $(cat ../COMMIT_ID)
 python scripts/bootstrap.py
 gclient sync
+
+# Modify the build to statically link standard libraries on Linux.
+
+cp BUILD.gn _
+cat _ | awk '
+/config\("external_config"\)/ {
+  print $0
+  print "  if (is_linux) {"
+  print "    ldflags = [ \"-static-libgcc\", \"-static-libstdc++\" ]"
+  print "  }"
+  next
+}
+
+{
+  print $0
+}
+' > BUILD.gn
